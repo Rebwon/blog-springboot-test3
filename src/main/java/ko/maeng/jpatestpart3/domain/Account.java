@@ -1,16 +1,15 @@
 package ko.maeng.jpatestpart3.domain;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@EqualsAndHashCode(of = "id")
 @Table(name = "Account")
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Account {
 
@@ -30,5 +29,12 @@ public class Account {
         this.username = username;
         this.password = password;
         this.signInDate = signInDate;
+    }
+
+    public boolean matchPassword(String loginPassword) {
+        if(loginPassword == null){
+            return false;
+        }
+        return loginPassword.equals(password);
     }
 }
